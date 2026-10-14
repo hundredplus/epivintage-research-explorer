@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EpiVintage | Research Estimate Explorer</title>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<style>
+:root{font-family:system-ui,-apple-system,sans-serif;color:#182738;background:#f4f7fa}
+*{box-sizing:border-box}body{margin:0}header{background:#10283c;color:white;padding:28px max(20px,calc((100vw - 1100px)/2))}
+h1{font-size:25px;margin:0 0 7px}.subtitle{color:#d4e1eb;margin:0;font-size:14px}
+main{max-width:1100px;padding:25px 20px 50px;margin:auto}.panel{background:white;border:1px solid #dbe4e9;border-radius:12px;padding:22px;margin-bottom:18px;box-shadow:0 3px 10px #223c5010}
+.controls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}label{display:block;font-weight:600;font-size:13px;margin-bottom:8px}select{width:100%;padding:10px;background:white;color:#182738;border:1px solid #b7c6d1;border-radius:6px}
+button{border:0;border-radius:6px;padding:11px 17px;color:white;background:#126c85;cursor:pointer;font-weight:700;margin-top:20px}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-bottom:18px}.metric{background:#eff6f8;padding:14px;border-radius:8px}.metric strong{display:block;font-size:23px;margin-top:7px}small,.note{color:#546575;font-size:12px;line-height:1.5}.plots{display:grid;grid-template-columns:1fr;gap:16px}.plot{min-height:330px}
+#error{color:#ad2222;font-weight:600;margin:12px 0}a{color:#0b637c}@media(max-width:760px){.controls{grid-template-columns:repeat(2,1fr)}.metrics{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><h1>EpiVintage | Research Estimate Explorer</h1><p class="subtitle">Compare successive reporting vintages and their uncertainty - an independent research software demonstration</p></header>
+<main>
+<div class="panel">
+  <div class="controls">
+    <div><label for="location">Jurisdiction</label><select id="location"></select></div>
+    <div><label for="pathogen">Pathogen</label><select id="pathogen"></select></div>
+    <div><label for="first">Earlier reporting date</label><select id="first"></select></div>
+    <div><label for="second">Later reporting date</label><select id="second"></select></div>
+  </div>
+  <button id="compare">Compare reporting vintages</button>
+  <div id="error" role="alert" aria-live="polite"></div>
+</div>
+<div class="panel">
+  <div class="metrics" aria-label="Revision summary">
+    <div class="metric"><small>Overlapping estimate days</small><strong id="days">-</strong></div>
+    <div class="metric"><small>Mean absolute estimate revision</small><strong id="mean">-</strong></div>
+    <div class="metric"><small>Largest absolute revision</small><strong id="max">-</strong></div>
+  </div>
+  <div class="plots"><div id="estimates" class="plot" aria-label="Estimates and credible intervals"></div><div id="revisions" class="plot" aria-label="Estimate revisions"></div></div>
+<small id="sources" aria-live="polite"></small>
+</div>
+<div class="panel note">
+  <strong>Interpretation and provenance.</strong>
+  These are situational assessment model estimates, not raw
+  observed case counts or forecasts.
+
+  A reporting vintage represents a particular analysis date.
+  Revisions may reflect newly available data or updated estimates.
+
+  The default demonstration dataset is synthetic. When external
+  CSV files are configured, the application analyses those inputs.
+  Source filenames are displayed beneath the charts.
+
+  This is an independent research software demonstration,
+  not affiliated with or endorsed by ACEFA.
+</div>
+</main>
+<script>
+const ids = ['location','pathogen','first','second'];
+const $ = id => document.getElementById(id);
+const palette = ['#047d89','#d1752b'];
+let availability = {};
+function onLocationChange(){
+  const compatible = Object.keys(availability[$('location').value] || {});
+  const previous = $('pathogen').value;
+  fill('pathogen', compatible);
+  if (compatible.includes(previous)) $('pathogen').value = previous;
+  onPathogenChange();
+}
+function onPathogenChange(){
+  const dates = availability[$('location').value]?.[$('pathogen').value] || [];
+  fill('first', dates);
+  fill('second', dates);
+  if (dates.length > 1) $('second').selectedIndex = dates.length-1;
+  $('compare').disabled = dates.length < 2;
+  $('error').textContent = dates.length < 2 ? 'Two reporting rounds are needed for comparison.' : '';
+}
+
+function fill(id, values){ $(id).replaceChildren(...values.map(v=>{const el=document.createElement('option');el.textContent=v;el.value=v;return el;})); }
+async function getJson(path){ const res=await fetch(path);const body=await res.json();if(!res.ok)throw new Error(body.detail||`Request failed: ${res.status}`);return body; }
+function band(rows, name, low, high, color){
+  const x=rows.map(r=>r.date);
+  return [
+    {x,y:rows.map(r=>r[high]),type:'scatter',mode:'lines',line:{width:0},showlegend:false,hoverinfo:'skip',legendgroup:name},
+    {x,y:rows.map(r=>r[low]),type:'scatter',mode:'lines',fill:'tonexty',fillcolor:color,line:{width:0},name:name+' 95% interval',legendgroup:name,hoverinfo:'skip',showlegend:true}
+  ];
+}
+async function draw(){
+ $('error').textContent='';
+ try{
+  const q=new URLSearchParams({location:$('location').value,pathogen:$('pathogen').value,first:$('first').value,second:$('second').value});
+  const result=await getJson('/api/compare?'+q);
+  $('sources').textContent = 'Sources: ' + [...new Set([...result.provenance.first, ...result.provenance.second])].join(', ');
+  $('days').textContent=result.stats.overlapping_days;
+  $('mean').textContent=result.stats.mean_abs_revision.toFixed(2);
+  $('max').textContent=result.stats.max_abs_revision.toFixed(2);
+  const traces=[];
+  for(const [key,color,index] of [['first','rgba(4,125,137,.12)',0],['second','rgba(209,117,43,.12)',1]]){
+    const rows=result[key], name=$(key).value;
+    traces.push(...band(rows,name,'lb_95','ub_95',color));
+    traces.push({x:rows.map(r=>r.date),y:rows.map(r=>r.y),type:'scatter',mode:'lines',name:`${name} median`,line:{color:palette[index],width:2.5}});
+  }
+  const opts={responsive:true,displaylogo:false};
+  Plotly.react('estimates',traces,{title:'Estimated cases and 95% credible intervals',height:420,margin:{t:60,r:20,b:55,l:55},xaxis:{title:'Estimate date'},yaxis:{title:'Estimated cases',rangemode:'tozero'},legend:{orientation:'h',y:-.25}},opts);
+  Plotly.react('revisions',[{x:result.revisions.map(r=>r.date),y:result.revisions.map(r=>r.delta),type:'bar',marker:{color:'#647e8c'},name:'Later minus earlier'}],{title:'Estimate revision by day (later - earlier)',height:320,margin:{t:55,r:20,b:60,l:55},xaxis:{title:'Estimate date'},yaxis:{title:'Change in estimated cases',zeroline:true}},opts);
+ }catch(err){$('error').textContent=err.message;}
+}
+(async()=>{try{
+  const d=await getJson('/api/options'); availability=d.availability;
+  fill('location',d.locations);
+  $('location').addEventListener('change',async()=>{onLocationChange();if(!$('compare').disabled)await draw();});
+  $('pathogen').addEventListener('change',async()=>{onPathogenChange();if(!$('compare').disabled)await draw();});
+  $('compare').addEventListener('click',draw);
+  onLocationChange();
+  if(!$('compare').disabled)await draw();
+}catch(err){$('error').textContent=err.message;}})();
+</script>
+</body>
+</html>
