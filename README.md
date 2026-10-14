@@ -23,7 +23,7 @@ rewriting ACEFA's Bayesian P-spline / Stan models.
 - Reporting-date availability checks (not every pathogen is present in every location)
 - A public-CSV fetch utility that verifies inputs and records SHA-256 provenance
 - Reporting-vintage comparisons on *overlapping dates* only
-- A browser UI with Plotly interactive confidence/credible bands
+- A browser UI with Plotly visualisations and 95% credible intervals
 - Reproducible self-contained synthetic demo, pytest, and GitHub Actions
 - Separation between scientific modelling code and software that consumes its outputs
 
