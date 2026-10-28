@@ -4,6 +4,8 @@ A small, **independent** software-engineering demonstration inspired by the publ
 [ACEFA Winter Situational Assessment 2025](https://github.com/acefa-hubs/SitAssessmentPaper2025)
 research code. This is **not** an official ACEFA application.
 
+**Live demo:** [Open EpiVintage](https://epivintage.erictran.dev). The hosted demo uses synthetic sample data by default; published ACEFA datasets are not loaded by default.
+
 ## Research question
 
 How did real-time estimates of influenza, RSV and SARS-CoV-2 activity change
