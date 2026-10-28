@@ -1,8 +1,11 @@
-name: Python Tests
+name: Python Tests and Deployment
 
 on:
   push:
   pull_request:
+
+permissions:
+  contents: read
 
 jobs:
   test:
@@ -24,3 +27,33 @@ jobs:
 
       - name: Run tests
         run: pytest -q
+
+  deploy:
+    name: Deploy to Oracle VPS
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Prepare SSH credentials
+        env:
+          DEPLOY_KEY: ${{ secrets.VPS_DEPLOY_KEY }}
+          KNOWN_HOSTS: ${{ vars.VPS_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d "$HOME/.ssh"
+          printf '%s\n' "$DEPLOY_KEY" > "$HOME/.ssh/epivintage_deploy"
+          chmod 600 "$HOME/.ssh/epivintage_deploy"
+          printf '%s\n' "$KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/known_hosts"
+
+      - name: Deploy the tested commit
+        env:
+          VPS_HOST: ${{ vars.VPS_HOST }}
+        run: |
+          printf '%s\n' "$GITHUB_SHA" |
+            ssh -T \
+              -i "$HOME/.ssh/epivintage_deploy" \
+              -o IdentitiesOnly=yes \
+              -o StrictHostKeyChecking=yes \
+              -o UserKnownHostsFile="$HOME/.ssh/known_hosts" \
+              "epivintage-deploy@$VPS_HOST"
