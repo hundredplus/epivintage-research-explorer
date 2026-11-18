@@ -1,157 +1,117 @@
-# EpiVintage: Research Estimate Revision Explorer
+# Rail Operations Lab
 
-A small, **independent** software-engineering demonstration inspired by the public
-[ACEFA Winter Situational Assessment 2025](https://github.com/acefa-hubs/SitAssessmentPaper2025)
-research code. This is **not** an official ACEFA application.
+Two reproducible learning case studies in **timetable data quality** and
+**corridor delay simulation**, using Python and SQL. Built by Eric Tran with AI
+assistance to explore rail operations and explain analytical trade-offs.
 
-**Live demo:** [Open EpiVintage](https://epivintage.erictran.dev). The hosted demo uses synthetic sample data by default; published ACEFA datasets are not loaded by default.
+This is an independent educational prototype. All timetable and operating data
+are invented; no Metro, DTP or V/Line data, affiliation or endorsement is implied.
+The project is evidence of a learning exercise, not professional rail-modelling
+experience or proficiency with a specialist rail simulation package.
 
-## Research question
+## Run in under a minute
 
-How did real-time estimates of influenza, RSV and SARS-CoV-2 activity change
-between two reporting dates, and how should their uncertainty be communicated?
-
-The public ACEFA paper code saves estimates across dated analysis rounds
-(`smoothed_estimates/modelled_estimates_cases*.csv`). Its publication figures
-use columns `time`, `origin`, `location`, `pathogen`, `y`, `lb_50`, `ub_50`,
-`lb_95`, `ub_95`. The public files also include `t_step`, which is accepted
-but not needed to compare reporting vintages. This application reads that **output interface** without
-rewriting ACEFA's Bayesian P-spline / Stan models.
-
-## What this demonstrates
-
-- Python data processing and typed FastAPI endpoints
-- Robust data validation, uncertainty-interval invariants, and explicit errors
-- Reporting-date availability checks (not every pathogen is present in every location)
-- A public-CSV fetch utility that verifies inputs and records SHA-256 provenance
-- Reporting-vintage comparisons on *overlapping dates* only
-- A browser UI with Plotly visualisations and 95% credible intervals
-- Reproducible self-contained synthetic demo, pytest, and GitHub Actions
-- Separation between scientific modelling code and software that consumes its outputs
-
-## Start locally
-
-Python 3.10+ is required. From the repository root:
+Python 3.11 or later, with SQLite window-function support. No third-party Python
+packages, API keys, database server or network access are required.
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate   # Windows: .venv\\Scripts\\activate
-pip install -e '.[test]'
-python -m epivintage.demo_data
-uvicorn epivintage.app:app --reload
+git clone --branch rail-operations-lab --single-branch https://github.com/hundredplus/epivintage-research-explorer.git rail-operations-lab
+cd rail-operations-lab
+python -m unittest discover -s tests -v
+python -m railops
 ```
 
-Open http://127.0.0.1:8000 and select a jurisdiction, pathogen and two
-reporting dates. The bundled sample is **entirely synthetic**. Charting via
-Plotly uses a CDN, so the browser needs internet access for the chart library.
-
-## Use published ACEFA estimate outputs
-
-The app starts with synthetic example data, but is designed to accept the
-public 2025 results from
-[ACEFA's situational assessment repository](https://github.com/acefa-hubs/SitAssessmentPaper2025/tree/main/smoothed_estimates).
-
-The repo contains separate `modelled_estimates_casesYYYY-MM-DD.csv` files for
-each reporting date. **These are model-estimated activity trends, not raw
-observed data and not necessarily future forecasts.** Only download files
-which ACEFA has made public and review the repository's Apache-2.0 licence
-and citation requirements before reuse. Do not commit confidential inputs.
-
-Download two public reporting dates from GitHub (requires internet access):
+Open `reports/report.html` in a browser. Review the committed
+[scenario metrics](reports/scenarios.csv), [SQL spacing checks](reports/headways.csv),
+[full results and example traces](reports/results.json), and
+[model assumptions](docs/method.md). To reproduce elsewhere:
 
 ```bash
-python -m epivintage.fetch_acefa 2025-07-17 2025-08-07 --output downloads
+python -m railops --replications 200 --seed 20261118 --output /tmp/railops-results
 ```
 
-The command validates each CSV, verifies its `origin` value, and saves a
-`downloads/source_manifest.json` containing the original public URL, retrieval
-timestamp, row count, size and SHA-256 hash. It prints the platform-specific
-path export command. On macOS/Linux, use:
+The project is published on the dedicated `rail-operations-lab` branch of an
+existing portfolio repository. The default branch contains the separate
+EpiVintage project; this branch contains only Rail Operations Lab.
 
-```bash
-export EPIVINTAGE_FILES="$PWD/downloads/modelled_estimates_cases2025-07-17.csv:$PWD/downloads/modelled_estimates_cases2025-08-07.csv"
-uvicorn epivintage.app:app --reload
-```
+## Case study 1 — Can we trust the timetable extract?
 
-For Windows, separate input paths with semicolons. You may also manually
-download the same public files and configure `EPIVINTAGE_FILES`. The program caches parsed files at startup; restart it after
-changing input files. To avoid double-counting, each (origin, time, location,
-pathogen) combination must appear only once. Rows with malformed or overlapping
-interval bounds are rejected with an actionable error.
+[`timetable.py`](railops/timetable.py) reads a small, single-service-day extract:
+four trips, four stops, sixteen stop-time records. It checks mandatory fields,
+duplicate identifiers, stop/trip references, time formats, stop sequence and
+chronological consistency. SHA-256 hashes identify the exact inputs used.
 
-**Provenance:** Researchers generated the original estimates using statistical
-models fitted to surveillance information. Do not describe the public estimates
-as wholly synthetic. The *input dummy datasets* in that ACEFA repository
-are explicitly simulated, while its saved `smoothed_estimates` represent
-research-model output generated for the 2025 analysis. Check conditions of use,
-cite the original authors, and do not redistribute nonpublic source data.
+The [SQL query](sql/headways.sql) uses `LAG` partitioned by route, direction and
+stop to calculate successive scheduled departure spacings. Terminal arrivals
+are excluded. Manually checked example: **240, 180 and 300 seconds** at stop A.
+An illustrative 240-second screen flags three departures across three stops.
+These are review flags; track conflicts cannot be established from these fields.
 
-## Testing
+The schema is **GTFS-inspired, not a complete GTFS feed or validator**. It does
+not expand calendars, load a Victoria feed, or join different routes sharing
+infrastructure. The CSV filenames and mandatory subset are specific to this lab.
+Service-day times beyond midnight, such as `25:10:00`, are supported.
 
-```bash
-pytest -q
-```
+## Case study 2 — How do frequency and variability change delay?
 
-## Important scientific limitations
+[`simulation.py`](railops/simulation.py) models sixteen trains on three one-way
+segments. Each segment is an exclusive resource with a running time and
+clearance interval. Trains retain timetable order, wait for the resource, and
+never depart early. Stochastic origin and intermediate dwell delays are sampled
+for 200 replications, with shared uniform draws for paired scenario comparisons.
 
-- **No forecasts are generated by this tool.** It displays retrospective or
-  near-real-time situational assessment model estimates; it must not be
-  described as a validated forecasting model.
-- A revision is a change in a model estimate between reporting vintages,
-  *not* a prediction error or a measure of epidemiological ground truth.
-- Summaries compare only exact overlapping (location, pathogen, date) pairs.
-- Intervals are assumed to be central 50% and 95% credible intervals, as
-  documented in ACEFA's README. The tool does not refit statistical models.
-- The supplied demo dataset is synthetic and should not inform public-health
-  decisions. The data and model assumptions of the research authors prevail.
-- Structural checks here are **not** an official hubverse submission validator.
+Committed example results, seed 20261118 (seconds):
 
-## Development status and roadmap
+| Scenario | Mean terminal delay | P95 terminal delay | Scheduled journey |
+| --- | ---: | ---: | ---: |
+| Four-minute service | 136.0 | 190 | 630 |
+| Three-minute service | 405.2 | 640 | 630 |
+| Add 30 seconds recovery per intermediate stop | 76.2 | 130 | 690 |
+| Reduce maximum extra dwell from 90 to 30 seconds | 63.4 | 95 | 630 |
 
-**Current phase (0.2): Python research-data integration verified.**
+**Interpretation:** scheduling every 180 seconds against a 210-second assumed
+resource occupancy creates queues. Adding recovery improves lateness against a
+longer timetable, so punctuality alone is an incomplete measure. Lower dwell
+variability explores another mechanism without extending the scheduled journey.
+These are model outputs under assumptions, not measured operational benefits.
 
-EpiVintage successfully downloads, validates, and processes two publicly
-released ACEFA modelled-estimate datasets (2025-07-17 and 2025-08-07),
-containing 49,209 and 49,359 rows respectively.
+![Mean terminal delay under four synthetic scenarios](reports/scenario_comparison.svg)
 
-The application provides interactive visualisations of epidemiological
-estimates, 95% credible intervals, and revisions between reporting vintages.
+The data-quality extract and the simulation are **separate examples**. The CLI
+runs both; it does not infer simulation parameters from timetable CSVs.
 
-**Independent verification (14 October 2026):**
+## Verification and limitations
 
-For ACT / Influenza A:
-- Overlapping estimate dates: 1,072
-- Mean absolute revision: 0.04
-- Largest absolute revision: 2.48
+18 automated tests cover hand-calculated cases, clearance and continuity
+invariants, repeatability, after-midnight times and invalid inputs. A GitHub
+Actions workflow runs the suite on Python 3.11–3.13 when pushed. Local test
+results are not a claim that remote CI has already passed.
 
-All three metrics were independently verified using Pandas calculations
-against the original published CSV files.
+This is a finite cohort entering an empty corridor, not steady-state capacity
+analysis. It omits junctions, opposing movements, signalling, braking, finite
+station/storage capacity, crews, rolling stock and passengers. Calibration,
+independent validation and operator review would be required before practical
+use. The 60-second threshold is chosen for this exercise, not a Metro KPI.
 
-**Testing:** 15 automated tests passed locally, including one integration
-test using actual ACEFA data. The integration test is skipped when the
-downloaded datasets are unavailable.
+## Review the work
 
-The application uses synthetic data by default and supports published
-ACEFA datasets through the `EPIVINTAGE_FILES` environment variable.
+1. Run the deterministic two-train test and calculate its 30-second queue by hand.
+2. Change the service interval from 240 to 180 seconds; explain why queues grow.
+3. Compare scheduled journey time as well as delay when adding recovery.
+4. Explain why the SQL spacing flags do not prove track conflicts.
+5. State which observed data would be needed to calibrate the model.
 
-**Next phase:** A small React + TypeScript user interface with accessible
-charts, frontend tests, and backend integration. The existing plain-JavaScript
-view remains usable as an interim UI.
+See the [walkthrough](docs/walkthrough.md) for exercises and
+[method](docs/method.md) for equations, assumptions and next steps.
 
-**Future improvements:** Import-performance tests on complete files;
-per-pathogen coverage and missingness reports; comparison CSV export;
-public-data deployments; more robust optional Hubverse integration.
+## Technical references
 
-**Not in scope:** This prototype is not a forecasting model, does not refit
-Stan/R models, does not support confidential health information, and is
-not a production ACEFA system. It does not demonstrate HPC cluster experience.
+- [GTFS Schedule Reference](https://gtfs.org/documentation/schedule/reference/)
+  for service-day time conventions and stop-time concepts.
+- [SQLite window functions](https://www.sqlite.org/windowfunctions.html)
+  for ordered SQL comparisons.
+- [Python random module](https://docs.python.org/3/library/random.html)
+  for seeded pseudorandom sampling.
 
-## Research attribution
-
-- [ACEFA 2025 Winter Situational Assessment research repository](https://github.com/acefa-hubs/SitAssessmentPaper2025)
-- Eales, Windecker, McCaw and Shearer, *Inferring temporal trends of multiple
-  pathogens, variants, subtypes or serotypes from routine surveillance data*,
-  American Journal of Epidemiology (2025), DOI: 10.1093/aje/kwaf119.
-
-This repository is an independent skills demonstration, not an affiliation,
-collaboration or endorsement by ACEFA, its researchers or the University of Melbourne.
+MIT licence. AI-assisted source and documentation should be reviewed and
+understood by the presenter before claiming independent implementation ability.
