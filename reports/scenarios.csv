@@ -1,0 +1,5 @@
+name,trains,segments,interval,run,clearance,dwell,recovery,initial_delay_max,extra_dwell_max,replications,seed,mean_terminal_delay_seconds,mean_delay_monte_carlo_se_seconds,p95_terminal_delay_seconds,within_60_seconds_pct,mean_queue_seconds_per_train,scheduled_journey_seconds,block_occupancy_seconds,nominal_trains_per_hour,paired_mean_delay_change_seconds,paired_change_monte_carlo_se_seconds
+Base four minute service,16,3,240,180,30,45,0,60,90,200,20261118,135.979375,0.8356451782479333,190.0,0.65625,16.3428125,630,210,15.0,0.0,0.0
+Three minute service,16,3,180,180,30,45,0,60,90,200,20261118,405.2390625,1.5732975188240488,640.0,0.28125,285.6025,630,210,20.0,269.2596875,1.3393118024760804
+Thirty second timetable recovery,16,3,240,180,30,45,30,60,90,200,20261118,76.1840625,0.827729941264084,130.0,32.28125,15.545,690,210,15.0,-59.7953125,0.03864189384942333
+Lower dwell variability,16,3,240,180,30,45,0,60,30,200,20261118,63.415625,0.43501870618749283,95.0,44.53125,3.2690625,630,210,15.0,-72.56375,0.5216551439370457

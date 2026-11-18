@@ -1,16 +1,4 @@
-# Python
-.venv/
 __pycache__/
 *.py[cod]
-*.egg-info/
-.pytest_cache/
-build/
-dist/
-
-# Local research data
-downloads/
-
-# Environment and OS
-.env
-.env.*
+.venv/
 .DS_Store

@@ -1,0 +1,1651 @@
+{
+  "scenarios": [
+    {
+      "name": "Base four minute service",
+      "trains": 16,
+      "segments": 3,
+      "interval": 240,
+      "run": 180,
+      "clearance": 30,
+      "dwell": 45,
+      "recovery": 0,
+      "initial_delay_max": 60,
+      "extra_dwell_max": 90,
+      "replications": 200,
+      "seed": 20261118,
+      "mean_terminal_delay_seconds": 135.979375,
+      "mean_delay_monte_carlo_se_seconds": 0.8356451782479333,
+      "p95_terminal_delay_seconds": 190.0,
+      "within_60_seconds_pct": 0.65625,
+      "mean_queue_seconds_per_train": 16.3428125,
+      "scheduled_journey_seconds": 630,
+      "block_occupancy_seconds": 210,
+      "nominal_trains_per_hour": 15.0,
+      "paired_mean_delay_change_seconds": 0.0,
+      "paired_change_monte_carlo_se_seconds": 0.0
+    },
+    {
+      "name": "Three minute service",
+      "trains": 16,
+      "segments": 3,
+      "interval": 180,
+      "run": 180,
+      "clearance": 30,
+      "dwell": 45,
+      "recovery": 0,
+      "initial_delay_max": 60,
+      "extra_dwell_max": 90,
+      "replications": 200,
+      "seed": 20261118,
+      "mean_terminal_delay_seconds": 405.2390625,
+      "mean_delay_monte_carlo_se_seconds": 1.5732975188240488,
+      "p95_terminal_delay_seconds": 640.0,
+      "within_60_seconds_pct": 0.28125,
+      "mean_queue_seconds_per_train": 285.6025,
+      "scheduled_journey_seconds": 630,
+      "block_occupancy_seconds": 210,
+      "nominal_trains_per_hour": 20.0,
+      "paired_mean_delay_change_seconds": 269.2596875,
+      "paired_change_monte_carlo_se_seconds": 1.3393118024760804
+    },
+    {
+      "name": "Thirty second timetable recovery",
+      "trains": 16,
+      "segments": 3,
+      "interval": 240,
+      "run": 180,
+      "clearance": 30,
+      "dwell": 45,
+      "recovery": 30,
+      "initial_delay_max": 60,
+      "extra_dwell_max": 90,
+      "replications": 200,
+      "seed": 20261118,
+      "mean_terminal_delay_seconds": 76.1840625,
+      "mean_delay_monte_carlo_se_seconds": 0.827729941264084,
+      "p95_terminal_delay_seconds": 130.0,
+      "within_60_seconds_pct": 32.28125,
+      "mean_queue_seconds_per_train": 15.545,
+      "scheduled_journey_seconds": 690,
+      "block_occupancy_seconds": 210,
+      "nominal_trains_per_hour": 15.0,
+      "paired_mean_delay_change_seconds": -59.7953125,
+      "paired_change_monte_carlo_se_seconds": 0.03864189384942333
+    },
+    {
+      "name": "Lower dwell variability",
+      "trains": 16,
+      "segments": 3,
+      "interval": 240,
+      "run": 180,
+      "clearance": 30,
+      "dwell": 45,
+      "recovery": 0,
+      "initial_delay_max": 60,
+      "extra_dwell_max": 30,
+      "replications": 200,
+      "seed": 20261118,
+      "mean_terminal_delay_seconds": 63.415625,
+      "mean_delay_monte_carlo_se_seconds": 0.43501870618749283,
+      "p95_terminal_delay_seconds": 95.0,
+      "within_60_seconds_pct": 44.53125,
+      "mean_queue_seconds_per_train": 3.2690625,
+      "scheduled_journey_seconds": 630,
+      "block_occupancy_seconds": 210,
+      "nominal_trains_per_hour": 15.0,
+      "paired_mean_delay_change_seconds": -72.56375,
+      "paired_change_monte_carlo_se_seconds": 0.5216551439370457
+    }
+  ],
+  "example_traces": {
+    "Base four minute service": [
+      {
+        "train": 0,
+        "segment": 0,
+        "planned_entry": 0,
+        "entry": 54,
+        "exit": 234,
+        "queue_seconds": 0
+      },
+      {
+        "train": 0,
+        "segment": 1,
+        "planned_entry": 225,
+        "entry": 330,
+        "exit": 510,
+        "queue_seconds": 0
+      },
+      {
+        "train": 0,
+        "segment": 2,
+        "planned_entry": 450,
+        "entry": 638,
+        "exit": 818,
+        "queue_seconds": 0
+      },
+      {
+        "train": 1,
+        "segment": 0,
+        "planned_entry": 240,
+        "entry": 290,
+        "exit": 470,
+        "queue_seconds": 0
+      },
+      {
+        "train": 1,
+        "segment": 1,
+        "planned_entry": 465,
+        "entry": 540,
+        "exit": 720,
+        "queue_seconds": 7
+      },
+      {
+        "train": 1,
+        "segment": 2,
+        "planned_entry": 690,
+        "entry": 848,
+        "exit": 1028,
+        "queue_seconds": 70
+      },
+      {
+        "train": 2,
+        "segment": 0,
+        "planned_entry": 480,
+        "entry": 500,
+        "exit": 680,
+        "queue_seconds": 0
+      },
+      {
+        "train": 2,
+        "segment": 1,
+        "planned_entry": 705,
+        "entry": 778,
+        "exit": 958,
+        "queue_seconds": 0
+      },
+      {
+        "train": 2,
+        "segment": 2,
+        "planned_entry": 930,
+        "entry": 1058,
+        "exit": 1238,
+        "queue_seconds": 46
+      },
+      {
+        "train": 3,
+        "segment": 0,
+        "planned_entry": 720,
+        "entry": 722,
+        "exit": 902,
+        "queue_seconds": 0
+      },
+      {
+        "train": 3,
+        "segment": 1,
+        "planned_entry": 945,
+        "entry": 988,
+        "exit": 1168,
+        "queue_seconds": 3
+      },
+      {
+        "train": 3,
+        "segment": 2,
+        "planned_entry": 1170,
+        "entry": 1268,
+        "exit": 1448,
+        "queue_seconds": 51
+      },
+      {
+        "train": 4,
+        "segment": 0,
+        "planned_entry": 960,
+        "entry": 961,
+        "exit": 1141,
+        "queue_seconds": 0
+      },
+      {
+        "train": 4,
+        "segment": 1,
+        "planned_entry": 1185,
+        "entry": 1267,
+        "exit": 1447,
+        "queue_seconds": 0
+      },
+      {
+        "train": 4,
+        "segment": 2,
+        "planned_entry": 1410,
+        "entry": 1508,
+        "exit": 1688,
+        "queue_seconds": 0
+      },
+      {
+        "train": 5,
+        "segment": 0,
+        "planned_entry": 1200,
+        "entry": 1223,
+        "exit": 1403,
+        "queue_seconds": 0
+      },
+      {
+        "train": 5,
+        "segment": 1,
+        "planned_entry": 1425,
+        "entry": 1522,
+        "exit": 1702,
+        "queue_seconds": 0
+      },
+      {
+        "train": 5,
+        "segment": 2,
+        "planned_entry": 1650,
+        "entry": 1797,
+        "exit": 1977,
+        "queue_seconds": 0
+      },
+      {
+        "train": 6,
+        "segment": 0,
+        "planned_entry": 1440,
+        "entry": 1470,
+        "exit": 1650,
+        "queue_seconds": 0
+      },
+      {
+        "train": 6,
+        "segment": 1,
+        "planned_entry": 1665,
+        "entry": 1779,
+        "exit": 1959,
+        "queue_seconds": 0
+      },
+      {
+        "train": 6,
+        "segment": 2,
+        "planned_entry": 1890,
+        "entry": 2017,
+        "exit": 2197,
+        "queue_seconds": 0
+      },
+      {
+        "train": 7,
+        "segment": 0,
+        "planned_entry": 1680,
+        "entry": 1705,
+        "exit": 1885,
+        "queue_seconds": 0
+      },
+      {
+        "train": 7,
+        "segment": 1,
+        "planned_entry": 1905,
+        "entry": 1989,
+        "exit": 2169,
+        "queue_seconds": 23
+      },
+      {
+        "train": 7,
+        "segment": 2,
+        "planned_entry": 2130,
+        "entry": 2248,
+        "exit": 2428,
+        "queue_seconds": 0
+      },
+      {
+        "train": 8,
+        "segment": 0,
+        "planned_entry": 1920,
+        "entry": 1930,
+        "exit": 2110,
+        "queue_seconds": 0
+      },
+      {
+        "train": 8,
+        "segment": 1,
+        "planned_entry": 2145,
+        "entry": 2220,
+        "exit": 2400,
+        "queue_seconds": 0
+      },
+      {
+        "train": 8,
+        "segment": 2,
+        "planned_entry": 2370,
+        "entry": 2458,
+        "exit": 2638,
+        "queue_seconds": 8
+      },
+      {
+        "train": 9,
+        "segment": 0,
+        "planned_entry": 2160,
+        "entry": 2201,
+        "exit": 2381,
+        "queue_seconds": 0
+      },
+      {
+        "train": 9,
+        "segment": 1,
+        "planned_entry": 2385,
+        "entry": 2491,
+        "exit": 2671,
+        "queue_seconds": 0
+      },
+      {
+        "train": 9,
+        "segment": 2,
+        "planned_entry": 2610,
+        "entry": 2742,
+        "exit": 2922,
+        "queue_seconds": 0
+      },
+      {
+        "train": 10,
+        "segment": 0,
+        "planned_entry": 2400,
+        "entry": 2411,
+        "exit": 2591,
+        "queue_seconds": 11
+      },
+      {
+        "train": 10,
+        "segment": 1,
+        "planned_entry": 2625,
+        "entry": 2701,
+        "exit": 2881,
+        "queue_seconds": 11
+      },
+      {
+        "train": 10,
+        "segment": 2,
+        "planned_entry": 2850,
+        "entry": 2987,
+        "exit": 3167,
+        "queue_seconds": 0
+      },
+      {
+        "train": 11,
+        "segment": 0,
+        "planned_entry": 2640,
+        "entry": 2700,
+        "exit": 2880,
+        "queue_seconds": 0
+      },
+      {
+        "train": 11,
+        "segment": 1,
+        "planned_entry": 2865,
+        "entry": 2959,
+        "exit": 3139,
+        "queue_seconds": 0
+      },
+      {
+        "train": 11,
+        "segment": 2,
+        "planned_entry": 3090,
+        "entry": 3244,
+        "exit": 3424,
+        "queue_seconds": 0
+      },
+      {
+        "train": 12,
+        "segment": 0,
+        "planned_entry": 2880,
+        "entry": 2910,
+        "exit": 3090,
+        "queue_seconds": 27
+      },
+      {
+        "train": 12,
+        "segment": 1,
+        "planned_entry": 3105,
+        "entry": 3171,
+        "exit": 3351,
+        "queue_seconds": 0
+      },
+      {
+        "train": 12,
+        "segment": 2,
+        "planned_entry": 3330,
+        "entry": 3454,
+        "exit": 3634,
+        "queue_seconds": 34
+      },
+      {
+        "train": 13,
+        "segment": 0,
+        "planned_entry": 3120,
+        "entry": 3120,
+        "exit": 3300,
+        "queue_seconds": 0
+      },
+      {
+        "train": 13,
+        "segment": 1,
+        "planned_entry": 3345,
+        "entry": 3408,
+        "exit": 3588,
+        "queue_seconds": 0
+      },
+      {
+        "train": 13,
+        "segment": 2,
+        "planned_entry": 3570,
+        "entry": 3705,
+        "exit": 3885,
+        "queue_seconds": 0
+      },
+      {
+        "train": 14,
+        "segment": 0,
+        "planned_entry": 3360,
+        "entry": 3376,
+        "exit": 3556,
+        "queue_seconds": 0
+      },
+      {
+        "train": 14,
+        "segment": 1,
+        "planned_entry": 3585,
+        "entry": 3671,
+        "exit": 3851,
+        "queue_seconds": 0
+      },
+      {
+        "train": 14,
+        "segment": 2,
+        "planned_entry": 3810,
+        "entry": 3915,
+        "exit": 4095,
+        "queue_seconds": 9
+      },
+      {
+        "train": 15,
+        "segment": 0,
+        "planned_entry": 3600,
+        "entry": 3645,
+        "exit": 3825,
+        "queue_seconds": 0
+      },
+      {
+        "train": 15,
+        "segment": 1,
+        "planned_entry": 3825,
+        "entry": 3887,
+        "exit": 4067,
+        "queue_seconds": 0
+      },
+      {
+        "train": 15,
+        "segment": 2,
+        "planned_entry": 4050,
+        "entry": 4163,
+        "exit": 4343,
+        "queue_seconds": 0
+      }
+    ],
+    "Three minute service": [
+      {
+        "train": 0,
+        "segment": 0,
+        "planned_entry": 0,
+        "entry": 54,
+        "exit": 234,
+        "queue_seconds": 0
+      },
+      {
+        "train": 0,
+        "segment": 1,
+        "planned_entry": 225,
+        "entry": 330,
+        "exit": 510,
+        "queue_seconds": 0
+      },
+      {
+        "train": 0,
+        "segment": 2,
+        "planned_entry": 450,
+        "entry": 638,
+        "exit": 818,
+        "queue_seconds": 0
+      },
+      {
+        "train": 1,
+        "segment": 0,
+        "planned_entry": 180,
+        "entry": 264,
+        "exit": 444,
+        "queue_seconds": 34
+      },
+      {
+        "train": 1,
+        "segment": 1,
+        "planned_entry": 405,
+        "entry": 540,
+        "exit": 720,
+        "queue_seconds": 33
+      },
+      {
+        "train": 1,
+        "segment": 2,
+        "planned_entry": 630,
+        "entry": 848,
+        "exit": 1028,
+        "queue_seconds": 70
+      },
+      {
+        "train": 2,
+        "segment": 0,
+        "planned_entry": 360,
+        "entry": 474,
+        "exit": 654,
+        "queue_seconds": 94
+      },
+      {
+        "train": 2,
+        "segment": 1,
+        "planned_entry": 585,
+        "entry": 752,
+        "exit": 932,
+        "queue_seconds": 0
+      },
+      {
+        "train": 2,
+        "segment": 2,
+        "planned_entry": 810,
+        "entry": 1058,
+        "exit": 1238,
+        "queue_seconds": 72
+      },
+      {
+        "train": 3,
+        "segment": 0,
+        "planned_entry": 540,
+        "entry": 684,
+        "exit": 864,
+        "queue_seconds": 142
+      },
+      {
+        "train": 3,
+        "segment": 1,
+        "planned_entry": 765,
+        "entry": 962,
+        "exit": 1142,
+        "queue_seconds": 15
+      },
+      {
+        "train": 3,
+        "segment": 2,
+        "planned_entry": 990,
+        "entry": 1268,
+        "exit": 1448,
+        "queue_seconds": 77
+      },
+      {
+        "train": 4,
+        "segment": 0,
+        "planned_entry": 720,
+        "entry": 894,
+        "exit": 1074,
+        "queue_seconds": 173
+      },
+      {
+        "train": 4,
+        "segment": 1,
+        "planned_entry": 945,
+        "entry": 1200,
+        "exit": 1380,
+        "queue_seconds": 0
+      },
+      {
+        "train": 4,
+        "segment": 2,
+        "planned_entry": 1170,
+        "entry": 1478,
+        "exit": 1658,
+        "queue_seconds": 37
+      },
+      {
+        "train": 5,
+        "segment": 0,
+        "planned_entry": 900,
+        "entry": 1104,
+        "exit": 1284,
+        "queue_seconds": 181
+      },
+      {
+        "train": 5,
+        "segment": 1,
+        "planned_entry": 1125,
+        "entry": 1410,
+        "exit": 1590,
+        "queue_seconds": 7
+      },
+      {
+        "train": 5,
+        "segment": 2,
+        "planned_entry": 1350,
+        "entry": 1688,
+        "exit": 1868,
+        "queue_seconds": 3
+      },
+      {
+        "train": 6,
+        "segment": 0,
+        "planned_entry": 1080,
+        "entry": 1314,
+        "exit": 1494,
+        "queue_seconds": 204
+      },
+      {
+        "train": 6,
+        "segment": 1,
+        "planned_entry": 1305,
+        "entry": 1623,
+        "exit": 1803,
+        "queue_seconds": 0
+      },
+      {
+        "train": 6,
+        "segment": 2,
+        "planned_entry": 1530,
+        "entry": 1898,
+        "exit": 2078,
+        "queue_seconds": 37
+      },
+      {
+        "train": 7,
+        "segment": 0,
+        "planned_entry": 1260,
+        "entry": 1524,
+        "exit": 1704,
+        "queue_seconds": 239
+      },
+      {
+        "train": 7,
+        "segment": 1,
+        "planned_entry": 1485,
+        "entry": 1833,
+        "exit": 2013,
+        "queue_seconds": 48
+      },
+      {
+        "train": 7,
+        "segment": 2,
+        "planned_entry": 1710,
+        "entry": 2108,
+        "exit": 2288,
+        "queue_seconds": 16
+      },
+      {
+        "train": 8,
+        "segment": 0,
+        "planned_entry": 1440,
+        "entry": 1734,
+        "exit": 1914,
+        "queue_seconds": 284
+      },
+      {
+        "train": 8,
+        "segment": 1,
+        "planned_entry": 1665,
+        "entry": 2043,
+        "exit": 2223,
+        "queue_seconds": 19
+      },
+      {
+        "train": 8,
+        "segment": 2,
+        "planned_entry": 1890,
+        "entry": 2318,
+        "exit": 2498,
+        "queue_seconds": 45
+      },
+      {
+        "train": 9,
+        "segment": 0,
+        "planned_entry": 1620,
+        "entry": 1944,
+        "exit": 2124,
+        "queue_seconds": 283
+      },
+      {
+        "train": 9,
+        "segment": 1,
+        "planned_entry": 1845,
+        "entry": 2253,
+        "exit": 2433,
+        "queue_seconds": 19
+      },
+      {
+        "train": 9,
+        "segment": 2,
+        "planned_entry": 2070,
+        "entry": 2528,
+        "exit": 2708,
+        "queue_seconds": 24
+      },
+      {
+        "train": 10,
+        "segment": 0,
+        "planned_entry": 1800,
+        "entry": 2154,
+        "exit": 2334,
+        "queue_seconds": 354
+      },
+      {
+        "train": 10,
+        "segment": 1,
+        "planned_entry": 2025,
+        "entry": 2463,
+        "exit": 2643,
+        "queue_seconds": 30
+      },
+      {
+        "train": 10,
+        "segment": 2,
+        "planned_entry": 2250,
+        "entry": 2749,
+        "exit": 2929,
+        "queue_seconds": 0
+      },
+      {
+        "train": 11,
+        "segment": 0,
+        "planned_entry": 1980,
+        "entry": 2364,
+        "exit": 2544,
+        "queue_seconds": 324
+      },
+      {
+        "train": 11,
+        "segment": 1,
+        "planned_entry": 2205,
+        "entry": 2673,
+        "exit": 2853,
+        "queue_seconds": 50
+      },
+      {
+        "train": 11,
+        "segment": 2,
+        "planned_entry": 2430,
+        "entry": 2959,
+        "exit": 3139,
+        "queue_seconds": 1
+      },
+      {
+        "train": 12,
+        "segment": 0,
+        "planned_entry": 2160,
+        "entry": 2574,
+        "exit": 2754,
+        "queue_seconds": 411
+      },
+      {
+        "train": 12,
+        "segment": 1,
+        "planned_entry": 2385,
+        "entry": 2883,
+        "exit": 3063,
+        "queue_seconds": 48
+      },
+      {
+        "train": 12,
+        "segment": 2,
+        "planned_entry": 2610,
+        "entry": 3169,
+        "exit": 3349,
+        "queue_seconds": 37
+      },
+      {
+        "train": 13,
+        "segment": 0,
+        "planned_entry": 2340,
+        "entry": 2784,
+        "exit": 2964,
+        "queue_seconds": 444
+      },
+      {
+        "train": 13,
+        "segment": 1,
+        "planned_entry": 2565,
+        "entry": 3093,
+        "exit": 3273,
+        "queue_seconds": 21
+      },
+      {
+        "train": 13,
+        "segment": 2,
+        "planned_entry": 2790,
+        "entry": 3390,
+        "exit": 3570,
+        "queue_seconds": 0
+      },
+      {
+        "train": 14,
+        "segment": 0,
+        "planned_entry": 2520,
+        "entry": 2994,
+        "exit": 3174,
+        "queue_seconds": 458
+      },
+      {
+        "train": 14,
+        "segment": 1,
+        "planned_entry": 2745,
+        "entry": 3303,
+        "exit": 3483,
+        "queue_seconds": 14
+      },
+      {
+        "train": 14,
+        "segment": 2,
+        "planned_entry": 2970,
+        "entry": 3600,
+        "exit": 3780,
+        "queue_seconds": 62
+      },
+      {
+        "train": 15,
+        "segment": 0,
+        "planned_entry": 2700,
+        "entry": 3204,
+        "exit": 3384,
+        "queue_seconds": 459
+      },
+      {
+        "train": 15,
+        "segment": 1,
+        "planned_entry": 2925,
+        "entry": 3513,
+        "exit": 3693,
+        "queue_seconds": 67
+      },
+      {
+        "train": 15,
+        "segment": 2,
+        "planned_entry": 3150,
+        "entry": 3810,
+        "exit": 3990,
+        "queue_seconds": 21
+      }
+    ],
+    "Thirty second timetable recovery": [
+      {
+        "train": 0,
+        "segment": 0,
+        "planned_entry": 0,
+        "entry": 54,
+        "exit": 234,
+        "queue_seconds": 0
+      },
+      {
+        "train": 0,
+        "segment": 1,
+        "planned_entry": 255,
+        "entry": 330,
+        "exit": 510,
+        "queue_seconds": 0
+      },
+      {
+        "train": 0,
+        "segment": 2,
+        "planned_entry": 510,
+        "entry": 638,
+        "exit": 818,
+        "queue_seconds": 0
+      },
+      {
+        "train": 1,
+        "segment": 0,
+        "planned_entry": 240,
+        "entry": 290,
+        "exit": 470,
+        "queue_seconds": 0
+      },
+      {
+        "train": 1,
+        "segment": 1,
+        "planned_entry": 495,
+        "entry": 540,
+        "exit": 720,
+        "queue_seconds": 7
+      },
+      {
+        "train": 1,
+        "segment": 2,
+        "planned_entry": 750,
+        "entry": 848,
+        "exit": 1028,
+        "queue_seconds": 70
+      },
+      {
+        "train": 2,
+        "segment": 0,
+        "planned_entry": 480,
+        "entry": 500,
+        "exit": 680,
+        "queue_seconds": 0
+      },
+      {
+        "train": 2,
+        "segment": 1,
+        "planned_entry": 735,
+        "entry": 778,
+        "exit": 958,
+        "queue_seconds": 0
+      },
+      {
+        "train": 2,
+        "segment": 2,
+        "planned_entry": 990,
+        "entry": 1058,
+        "exit": 1238,
+        "queue_seconds": 46
+      },
+      {
+        "train": 3,
+        "segment": 0,
+        "planned_entry": 720,
+        "entry": 722,
+        "exit": 902,
+        "queue_seconds": 0
+      },
+      {
+        "train": 3,
+        "segment": 1,
+        "planned_entry": 975,
+        "entry": 988,
+        "exit": 1168,
+        "queue_seconds": 3
+      },
+      {
+        "train": 3,
+        "segment": 2,
+        "planned_entry": 1230,
+        "entry": 1268,
+        "exit": 1448,
+        "queue_seconds": 38
+      },
+      {
+        "train": 4,
+        "segment": 0,
+        "planned_entry": 960,
+        "entry": 961,
+        "exit": 1141,
+        "queue_seconds": 0
+      },
+      {
+        "train": 4,
+        "segment": 1,
+        "planned_entry": 1215,
+        "entry": 1267,
+        "exit": 1447,
+        "queue_seconds": 0
+      },
+      {
+        "train": 4,
+        "segment": 2,
+        "planned_entry": 1470,
+        "entry": 1508,
+        "exit": 1688,
+        "queue_seconds": 0
+      },
+      {
+        "train": 5,
+        "segment": 0,
+        "planned_entry": 1200,
+        "entry": 1223,
+        "exit": 1403,
+        "queue_seconds": 0
+      },
+      {
+        "train": 5,
+        "segment": 1,
+        "planned_entry": 1455,
+        "entry": 1522,
+        "exit": 1702,
+        "queue_seconds": 0
+      },
+      {
+        "train": 5,
+        "segment": 2,
+        "planned_entry": 1710,
+        "entry": 1797,
+        "exit": 1977,
+        "queue_seconds": 0
+      },
+      {
+        "train": 6,
+        "segment": 0,
+        "planned_entry": 1440,
+        "entry": 1470,
+        "exit": 1650,
+        "queue_seconds": 0
+      },
+      {
+        "train": 6,
+        "segment": 1,
+        "planned_entry": 1695,
+        "entry": 1779,
+        "exit": 1959,
+        "queue_seconds": 0
+      },
+      {
+        "train": 6,
+        "segment": 2,
+        "planned_entry": 1950,
+        "entry": 2017,
+        "exit": 2197,
+        "queue_seconds": 0
+      },
+      {
+        "train": 7,
+        "segment": 0,
+        "planned_entry": 1680,
+        "entry": 1705,
+        "exit": 1885,
+        "queue_seconds": 0
+      },
+      {
+        "train": 7,
+        "segment": 1,
+        "planned_entry": 1935,
+        "entry": 1989,
+        "exit": 2169,
+        "queue_seconds": 23
+      },
+      {
+        "train": 7,
+        "segment": 2,
+        "planned_entry": 2190,
+        "entry": 2248,
+        "exit": 2428,
+        "queue_seconds": 0
+      },
+      {
+        "train": 8,
+        "segment": 0,
+        "planned_entry": 1920,
+        "entry": 1930,
+        "exit": 2110,
+        "queue_seconds": 0
+      },
+      {
+        "train": 8,
+        "segment": 1,
+        "planned_entry": 2175,
+        "entry": 2220,
+        "exit": 2400,
+        "queue_seconds": 0
+      },
+      {
+        "train": 8,
+        "segment": 2,
+        "planned_entry": 2430,
+        "entry": 2458,
+        "exit": 2638,
+        "queue_seconds": 8
+      },
+      {
+        "train": 9,
+        "segment": 0,
+        "planned_entry": 2160,
+        "entry": 2201,
+        "exit": 2381,
+        "queue_seconds": 0
+      },
+      {
+        "train": 9,
+        "segment": 1,
+        "planned_entry": 2415,
+        "entry": 2491,
+        "exit": 2671,
+        "queue_seconds": 0
+      },
+      {
+        "train": 9,
+        "segment": 2,
+        "planned_entry": 2670,
+        "entry": 2742,
+        "exit": 2922,
+        "queue_seconds": 0
+      },
+      {
+        "train": 10,
+        "segment": 0,
+        "planned_entry": 2400,
+        "entry": 2411,
+        "exit": 2591,
+        "queue_seconds": 11
+      },
+      {
+        "train": 10,
+        "segment": 1,
+        "planned_entry": 2655,
+        "entry": 2701,
+        "exit": 2881,
+        "queue_seconds": 11
+      },
+      {
+        "train": 10,
+        "segment": 2,
+        "planned_entry": 2910,
+        "entry": 2987,
+        "exit": 3167,
+        "queue_seconds": 0
+      },
+      {
+        "train": 11,
+        "segment": 0,
+        "planned_entry": 2640,
+        "entry": 2700,
+        "exit": 2880,
+        "queue_seconds": 0
+      },
+      {
+        "train": 11,
+        "segment": 1,
+        "planned_entry": 2895,
+        "entry": 2959,
+        "exit": 3139,
+        "queue_seconds": 0
+      },
+      {
+        "train": 11,
+        "segment": 2,
+        "planned_entry": 3150,
+        "entry": 3244,
+        "exit": 3424,
+        "queue_seconds": 0
+      },
+      {
+        "train": 12,
+        "segment": 0,
+        "planned_entry": 2880,
+        "entry": 2910,
+        "exit": 3090,
+        "queue_seconds": 27
+      },
+      {
+        "train": 12,
+        "segment": 1,
+        "planned_entry": 3135,
+        "entry": 3171,
+        "exit": 3351,
+        "queue_seconds": 0
+      },
+      {
+        "train": 12,
+        "segment": 2,
+        "planned_entry": 3390,
+        "entry": 3454,
+        "exit": 3634,
+        "queue_seconds": 34
+      },
+      {
+        "train": 13,
+        "segment": 0,
+        "planned_entry": 3120,
+        "entry": 3120,
+        "exit": 3300,
+        "queue_seconds": 0
+      },
+      {
+        "train": 13,
+        "segment": 1,
+        "planned_entry": 3375,
+        "entry": 3408,
+        "exit": 3588,
+        "queue_seconds": 0
+      },
+      {
+        "train": 13,
+        "segment": 2,
+        "planned_entry": 3630,
+        "entry": 3705,
+        "exit": 3885,
+        "queue_seconds": 0
+      },
+      {
+        "train": 14,
+        "segment": 0,
+        "planned_entry": 3360,
+        "entry": 3376,
+        "exit": 3556,
+        "queue_seconds": 0
+      },
+      {
+        "train": 14,
+        "segment": 1,
+        "planned_entry": 3615,
+        "entry": 3671,
+        "exit": 3851,
+        "queue_seconds": 0
+      },
+      {
+        "train": 14,
+        "segment": 2,
+        "planned_entry": 3870,
+        "entry": 3915,
+        "exit": 4095,
+        "queue_seconds": 9
+      },
+      {
+        "train": 15,
+        "segment": 0,
+        "planned_entry": 3600,
+        "entry": 3645,
+        "exit": 3825,
+        "queue_seconds": 0
+      },
+      {
+        "train": 15,
+        "segment": 1,
+        "planned_entry": 3855,
+        "entry": 3887,
+        "exit": 4067,
+        "queue_seconds": 0
+      },
+      {
+        "train": 15,
+        "segment": 2,
+        "planned_entry": 4110,
+        "entry": 4163,
+        "exit": 4343,
+        "queue_seconds": 0
+      }
+    ],
+    "Lower dwell variability": [
+      {
+        "train": 0,
+        "segment": 0,
+        "planned_entry": 0,
+        "entry": 54,
+        "exit": 234,
+        "queue_seconds": 0
+      },
+      {
+        "train": 0,
+        "segment": 1,
+        "planned_entry": 225,
+        "entry": 296,
+        "exit": 476,
+        "queue_seconds": 0
+      },
+      {
+        "train": 0,
+        "segment": 2,
+        "planned_entry": 450,
+        "entry": 549,
+        "exit": 729,
+        "queue_seconds": 0
+      },
+      {
+        "train": 1,
+        "segment": 0,
+        "planned_entry": 240,
+        "entry": 290,
+        "exit": 470,
+        "queue_seconds": 0
+      },
+      {
+        "train": 1,
+        "segment": 1,
+        "planned_entry": 465,
+        "entry": 521,
+        "exit": 701,
+        "queue_seconds": 0
+      },
+      {
+        "train": 1,
+        "segment": 2,
+        "planned_entry": 690,
+        "entry": 759,
+        "exit": 939,
+        "queue_seconds": 9
+      },
+      {
+        "train": 2,
+        "segment": 0,
+        "planned_entry": 480,
+        "entry": 500,
+        "exit": 680,
+        "queue_seconds": 0
+      },
+      {
+        "train": 2,
+        "segment": 1,
+        "planned_entry": 705,
+        "entry": 743,
+        "exit": 923,
+        "queue_seconds": 0
+      },
+      {
+        "train": 2,
+        "segment": 2,
+        "planned_entry": 930,
+        "entry": 971,
+        "exit": 1151,
+        "queue_seconds": 0
+      },
+      {
+        "train": 3,
+        "segment": 0,
+        "planned_entry": 720,
+        "entry": 722,
+        "exit": 902,
+        "queue_seconds": 0
+      },
+      {
+        "train": 3,
+        "segment": 1,
+        "planned_entry": 945,
+        "entry": 960,
+        "exit": 1140,
+        "queue_seconds": 0
+      },
+      {
+        "train": 3,
+        "segment": 2,
+        "planned_entry": 1170,
+        "entry": 1186,
+        "exit": 1366,
+        "queue_seconds": 0
+      },
+      {
+        "train": 4,
+        "segment": 0,
+        "planned_entry": 960,
+        "entry": 961,
+        "exit": 1141,
+        "queue_seconds": 0
+      },
+      {
+        "train": 4,
+        "segment": 1,
+        "planned_entry": 1185,
+        "entry": 1213,
+        "exit": 1393,
+        "queue_seconds": 0
+      },
+      {
+        "train": 4,
+        "segment": 2,
+        "planned_entry": 1410,
+        "entry": 1443,
+        "exit": 1623,
+        "queue_seconds": 0
+      },
+      {
+        "train": 5,
+        "segment": 0,
+        "planned_entry": 1200,
+        "entry": 1223,
+        "exit": 1403,
+        "queue_seconds": 0
+      },
+      {
+        "train": 5,
+        "segment": 1,
+        "planned_entry": 1425,
+        "entry": 1473,
+        "exit": 1653,
+        "queue_seconds": 0
+      },
+      {
+        "train": 5,
+        "segment": 2,
+        "planned_entry": 1650,
+        "entry": 1715,
+        "exit": 1895,
+        "queue_seconds": 0
+      },
+      {
+        "train": 6,
+        "segment": 0,
+        "planned_entry": 1440,
+        "entry": 1470,
+        "exit": 1650,
+        "queue_seconds": 0
+      },
+      {
+        "train": 6,
+        "segment": 1,
+        "planned_entry": 1665,
+        "entry": 1723,
+        "exit": 1903,
+        "queue_seconds": 0
+      },
+      {
+        "train": 6,
+        "segment": 2,
+        "planned_entry": 1890,
+        "entry": 1952,
+        "exit": 2132,
+        "queue_seconds": 0
+      },
+      {
+        "train": 7,
+        "segment": 0,
+        "planned_entry": 1680,
+        "entry": 1705,
+        "exit": 1885,
+        "queue_seconds": 0
+      },
+      {
+        "train": 7,
+        "segment": 1,
+        "planned_entry": 1905,
+        "entry": 1942,
+        "exit": 2122,
+        "queue_seconds": 0
+      },
+      {
+        "train": 7,
+        "segment": 2,
+        "planned_entry": 2130,
+        "entry": 2178,
+        "exit": 2358,
+        "queue_seconds": 0
+      },
+      {
+        "train": 8,
+        "segment": 0,
+        "planned_entry": 1920,
+        "entry": 1930,
+        "exit": 2110,
+        "queue_seconds": 0
+      },
+      {
+        "train": 8,
+        "segment": 1,
+        "planned_entry": 2145,
+        "entry": 2177,
+        "exit": 2357,
+        "queue_seconds": 0
+      },
+      {
+        "train": 8,
+        "segment": 2,
+        "planned_entry": 2370,
+        "entry": 2403,
+        "exit": 2583,
+        "queue_seconds": 0
+      },
+      {
+        "train": 9,
+        "segment": 0,
+        "planned_entry": 2160,
+        "entry": 2201,
+        "exit": 2381,
+        "queue_seconds": 0
+      },
+      {
+        "train": 9,
+        "segment": 1,
+        "planned_entry": 2385,
+        "entry": 2448,
+        "exit": 2628,
+        "queue_seconds": 0
+      },
+      {
+        "train": 9,
+        "segment": 2,
+        "planned_entry": 2610,
+        "entry": 2682,
+        "exit": 2862,
+        "queue_seconds": 0
+      },
+      {
+        "train": 10,
+        "segment": 0,
+        "planned_entry": 2400,
+        "entry": 2411,
+        "exit": 2591,
+        "queue_seconds": 11
+      },
+      {
+        "train": 10,
+        "segment": 1,
+        "planned_entry": 2625,
+        "entry": 2658,
+        "exit": 2838,
+        "queue_seconds": 4
+      },
+      {
+        "train": 10,
+        "segment": 2,
+        "planned_entry": 2850,
+        "entry": 2904,
+        "exit": 3084,
+        "queue_seconds": 0
+      },
+      {
+        "train": 11,
+        "segment": 0,
+        "planned_entry": 2640,
+        "entry": 2700,
+        "exit": 2880,
+        "queue_seconds": 0
+      },
+      {
+        "train": 11,
+        "segment": 1,
+        "planned_entry": 2865,
+        "entry": 2936,
+        "exit": 3116,
+        "queue_seconds": 0
+      },
+      {
+        "train": 11,
+        "segment": 2,
+        "planned_entry": 3090,
+        "entry": 3181,
+        "exit": 3361,
+        "queue_seconds": 0
+      },
+      {
+        "train": 12,
+        "segment": 0,
+        "planned_entry": 2880,
+        "entry": 2910,
+        "exit": 3090,
+        "queue_seconds": 27
+      },
+      {
+        "train": 12,
+        "segment": 1,
+        "planned_entry": 3105,
+        "entry": 3147,
+        "exit": 3327,
+        "queue_seconds": 0
+      },
+      {
+        "train": 12,
+        "segment": 2,
+        "planned_entry": 3330,
+        "entry": 3391,
+        "exit": 3571,
+        "queue_seconds": 11
+      },
+      {
+        "train": 13,
+        "segment": 0,
+        "planned_entry": 3120,
+        "entry": 3120,
+        "exit": 3300,
+        "queue_seconds": 0
+      },
+      {
+        "train": 13,
+        "segment": 1,
+        "planned_entry": 3345,
+        "entry": 3366,
+        "exit": 3546,
+        "queue_seconds": 0
+      },
+      {
+        "train": 13,
+        "segment": 2,
+        "planned_entry": 3570,
+        "entry": 3615,
+        "exit": 3795,
+        "queue_seconds": 0
+      },
+      {
+        "train": 14,
+        "segment": 0,
+        "planned_entry": 3360,
+        "entry": 3376,
+        "exit": 3556,
+        "queue_seconds": 0
+      },
+      {
+        "train": 14,
+        "segment": 1,
+        "planned_entry": 3585,
+        "entry": 3624,
+        "exit": 3804,
+        "queue_seconds": 0
+      },
+      {
+        "train": 14,
+        "segment": 2,
+        "planned_entry": 3810,
+        "entry": 3852,
+        "exit": 4032,
+        "queue_seconds": 0
+      },
+      {
+        "train": 15,
+        "segment": 0,
+        "planned_entry": 3600,
+        "entry": 3645,
+        "exit": 3825,
+        "queue_seconds": 0
+      },
+      {
+        "train": 15,
+        "segment": 1,
+        "planned_entry": 3825,
+        "entry": 3876,
+        "exit": 4056,
+        "queue_seconds": 0
+      },
+      {
+        "train": 15,
+        "segment": 2,
+        "planned_entry": 4050,
+        "entry": 4118,
+        "exit": 4298,
+        "queue_seconds": 0
+      }
+    ]
+  },
+  "source_sha256": {
+    "stops.csv": "af84ea40443c397ea24d816f50e555890a821e071d40c1538cfdcf54dcf65393",
+    "trips.csv": "e114a89a9996afa977f6e12a6ec60e1649729cb4e28ff215fede7b9e62ca60d9",
+    "stop_times.csv": "d41dca16bd57e946330af48be58eb349de6af972f0a1030815f32cd3242e54dc"
+  }
+}
